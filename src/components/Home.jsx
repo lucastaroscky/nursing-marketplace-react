@@ -30,7 +30,7 @@ const Home = () => {
     try {
       await banUser(userId);
 
-      if (users.find((user) => user.id === userId)) {
+      if (userId === getCookie("userId")) {
         deleteCookie("token");
         deleteCookie("refreshToken");
         deleteCookie("userId");
@@ -50,11 +50,13 @@ const Home = () => {
     try {
       await revokeAccess(userId);
 
-      deleteCookie.expire("token");
-      deleteCookie("refreshToken");
-      deleteCookie("userId");
+      if (userId === getCookie("userId")) {
+        deleteCookie("token");
+        deleteCookie("refreshToken");
+        deleteCookie("userId");
 
-      navigate("/login");
+        navigate("/login");
+      }
 
       alert("Token invalidated and logged out successfully");
     } catch (error) {

@@ -14,10 +14,10 @@ const Signup = () => {
 
     try {
       const response = await signUp({ name, email, password });
-      const { id, token, refreshToken } = response;
+      const { id, accessToken, refreshToken } = response;
 
       if (response) {
-        setCookie("token", token);
+        setCookie("token", accessToken);
         setCookie("refreshToken", refreshToken);
         setCookie("userId", id, { expires: 7 });
 
