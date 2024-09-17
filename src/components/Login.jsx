@@ -23,6 +23,7 @@ const Login = () => {
       if (response?.accessToken) {
         setCookie("token", response?.accessToken);
         setCookie("refreshToken", response?.refreshToken);
+        setCookie("userId", response?.id);
 
         navigate("/");
       }

@@ -21,13 +21,17 @@ const Signup = () => {
         setCookie("refreshToken", refreshToken);
         setCookie("userId", id, { expires: 7 });
 
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
-      alert(`Ocorreu um erro: ${error.name} - ${error.message}`);
+      alert(error.response.data.message);
 
       console.error("Error during signup:", error);
     }
+  };
+
+  const handleGoToLogin = () => {
+    navigate("/login");
   };
 
   return (
@@ -64,8 +68,12 @@ const Signup = () => {
           />
         </label>
         <br />
-        <button type="submit">Sign Up</button>
+        <button type="submit" onClick={handleSubmit}>
+          Sign Up
+        </button>
       </form>
+
+      <button onClick={handleGoToLogin}>Ir para Login</button>
     </div>
   );
 };

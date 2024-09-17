@@ -1,5 +1,5 @@
 import axiosInstance from "../provider/axiosProvider";
-import { getCookie, setCookie } from "../utils.js/cookie";
+import { deleteCookie, getCookie, setCookie } from "../utils.js/cookie";
 
 export const fetchUsers = async () => {
   try {
@@ -33,6 +33,7 @@ export const signIn = async ({ email, password }) => {
 export const signUp = async ({ name, email, password }) => {
   try {
     const response = await axiosInstance.post("auth/sign-up", {
+      name,
       email,
       password,
     });
@@ -109,8 +110,13 @@ export const refreshToken = async () => {
       }
     );
 
+    console.log("response", response);
+
+    deleteCookie("token");
     setCookie("token", response.data.accessToken);
+
+    return response.data.accessToken;
   } catch (error) {
-    console.error("Error trying to sign up:", error);
+    throw error;
   }
 };

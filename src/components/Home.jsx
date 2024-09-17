@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Cookies from "cookies-js";
 import { useNavigate } from "react-router-dom";
 import { fetchUsers } from "../services/apiService";
 import { banUser, revokeAccess } from "../services/apiService";
@@ -18,14 +17,14 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  useEffect(() => {
     if (!getCookie("token")) {
       navigate("/login");
+
+      return;
     }
-  }, [navigate]);
+
+    fetchData();
+  }, [fetchData, navigate]);
 
   const handleBanUser = async (userId) => {
     try {
@@ -64,9 +63,9 @@ const Home = () => {
   };
 
   const handleLogout = () => {
-    Cookies.expire("token");
-    Cookies.expire("refreshToken");
-    Cookies.expire("userId");
+    deleteCookie("token");
+    deleteCookie("refreshToken");
+    deleteCookie("userId");
 
     navigate("/login");
   };
