@@ -37,6 +37,10 @@ const Login = () => {
     }
   };
 
+  const handleGoToRegister = () => {
+    navigate("/register");
+  };
+
   return (
     <div>
       <h1>Login</h1>
@@ -63,6 +67,7 @@ const Login = () => {
         <br />
         <button type="submit">Login</button>
       </form>
+      <button onClick={handleGoToRegister}>Registrar-se</button>
     </div>
   );
 };
